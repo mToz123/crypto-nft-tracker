@@ -3,6 +3,7 @@
 import CryptoTracker from './components/CryptoTracker'
 import NFTTracker from './components/NFTTracker'
 import DLMMPools from './components/DLMMPools'
+import PumpDumpTracker from './components/PumpDumpTracker'
 import Navigation from './components/Navigation'
 
 export default function Home() {
@@ -28,6 +29,18 @@ export default function Home() {
             Crypto Prices
           </h2>
           <CryptoTracker />
+        </section>
+
+        {/* NFT Pump & Dump Tracker Section */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+            <span className="text-gradient">🚀💀</span>
+            NFT Pump & Dump Tracker
+          </h2>
+          <p className="text-white/60 mb-6">
+            Real-time detection: Track price movements, volume spikes, and market signals
+          </p>
+          <PumpDumpTracker />
         </section>
 
         {/* NFT Collections Section */}
