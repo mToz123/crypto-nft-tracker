@@ -5,17 +5,25 @@ import { useState } from 'react'
 interface SidebarProps {
   isDarkMode: boolean
   onToggleDarkMode: () => void
+  activeSection: string
+  onNavigate: (section: 'home' | 'crypto' | 'pump-dump' | 'nft' | 'dlmm') => void
 }
 
-export default function Sidebar({ isDarkMode, onToggleDarkMode }: SidebarProps) {
+export default function Sidebar({ isDarkMode, onToggleDarkMode, activeSection, onNavigate }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const menuItems = [
-    { id: 'crypto', label: 'Crypto Prices', href: '#crypto' },
-    { id: 'pump-dump', label: 'Pump & Dump', href: '#pump-dump' },
-    { id: 'nft', label: 'NFT Collections', href: '#nft' },
-    { id: 'dlmm', label: 'DLMM Pools', href: '#dlmm' },
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'crypto', label: 'Crypto Prices', icon: '₿' },
+    { id: 'pump-dump', label: 'Pump & Dump', icon: '📊' },
+    { id: 'nft', label: 'NFT Collections', icon: '🖼️' },
+    { id: 'dlmm', label: 'DLMM Pools', icon: '💧' },
   ]
+
+  const handleNavigate = (section: any) => {
+    onNavigate(section)
+    setIsOpen(false)
+  }
 
   return (
     <>
@@ -46,7 +54,7 @@ export default function Sidebar({ isDarkMode, onToggleDarkMode }: SidebarProps) 
         {/* Logo */}
         <div className="p-6 border-b border-white/10">
           <h1 className="text-2xl font-bold text-gradient">Sora</h1>
-          <p className="text-sm text-white/60 mt-1">Crypto Tracker</p>
+          <p className="text-sm text-white/60 mt-1">Crypto Analytics</p>
         </div>
 
         {/* Menu Items */}
@@ -54,13 +62,17 @@ export default function Sidebar({ isDarkMode, onToggleDarkMode }: SidebarProps) 
           <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.id}>
-                <a
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-all"
+                <button
+                  onClick={() => handleNavigate(item.id)}
+                  className={`w-full text-left block px-4 py-3 rounded-lg transition-all ${
+                    activeSection === item.id
+                      ? 'bg-accent text-white'
+                      : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  }`}
                 >
+                  <span className="mr-3">{item.icon}</span>
                   {item.label}
-                </a>
+                </button>
               </li>
             ))}
           </ul>

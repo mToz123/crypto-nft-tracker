@@ -9,79 +9,160 @@ import Sidebar from './components/Sidebar'
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true)
+  const [activeSection, setActiveSection] = useState<'home' | 'crypto' | 'pump-dump' | 'nft' | 'dlmm'>('home')
 
   return (
     <div className={isDarkMode ? 'dark' : 'light'}>
       <div className="min-h-screen bg-primary text-white">
-        <Sidebar isDarkMode={isDarkMode} onToggleDarkMode={() => setIsDarkMode(!isDarkMode)} />
+        <Sidebar 
+          isDarkMode={isDarkMode} 
+          onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+          activeSection={activeSection}
+          onNavigate={setActiveSection}
+        />
         
         <main className="md:ml-64 px-6 py-8">
-          {/* Header */}
-          <div className="mb-12 mt-12 md:mt-0">
-            <h1 className="text-5xl font-bold mb-4">
-              <span className="text-gradient">Crypto & NFT Tracker</span>
-            </h1>
-            <p className="text-white/60 text-lg">
-              Real-time tracking for Solana ecosystem: Prices, NFTs, and Meteora DLMM pools
-            </p>
-          </div>
+          {/* Landing Page / Home */}
+          {activeSection === 'home' && (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-6xl md:text-8xl font-bold mb-8">
+                  <span className="text-gradient">Sora</span>
+                </h1>
+                
+                <p className="text-2xl md:text-3xl text-white/80 mb-6 font-light">
+                  Crypto & NFT Analytics Platform
+                </p>
+                
+                <p className="text-lg md:text-xl text-white/60 mb-12 leading-relaxed max-w-2xl mx-auto">
+                  Platform analitik real-time untuk tracking cryptocurrency, NFT collections, 
+                  dan Meteora DLMM pools. Dapatkan insight lengkap dengan signal detection, 
+                  price charts, dan market analytics dalam satu dashboard.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                  <div className="crypto-card text-left">
+                    <h3 className="text-xl font-bold mb-3">Real-Time Tracking</h3>
+                    <p className="text-white/60">
+                      Monitor harga 20+ cryptocurrencies dengan 7-day charts dan 
+                      auto-refresh setiap 30 detik
+                    </p>
+                  </div>
+
+                  <div className="crypto-card text-left">
+                    <h3 className="text-xl font-bold mb-3">Pump & Dump Detection</h3>
+                    <p className="text-white/60">
+                      AI-powered signal detection untuk identifikasi NFT yang pump atau dump 
+                      dengan accuracy tinggi
+                    </p>
+                  </div>
+
+                  <div className="crypto-card text-left">
+                    <h3 className="text-xl font-bold mb-3">Multi-Network Support</h3>
+                    <p className="text-white/60">
+                      Coverage lengkap untuk Bitcoin, Ethereum, Solana, Polygon, Arbitrum, 
+                      dan 15+ networks lainnya
+                    </p>
+                  </div>
+
+                  <div className="crypto-card text-left">
+                    <h3 className="text-xl font-bold mb-3">DLMM Analytics</h3>
+                    <p className="text-white/60">
+                      Tracking Meteora DLMM pools dengan APY calculation, volume stats, 
+                      dan liquidity monitoring
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <button
+                    onClick={() => setActiveSection('crypto')}
+                    className="px-8 py-4 bg-accent hover:bg-accent/80 rounded-lg font-medium transition-all hover:scale-105"
+                  >
+                    Explore Crypto Prices
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveSection('pump-dump')}
+                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105"
+                  >
+                    View Pump & Dump Tracker
+                  </button>
+                </div>
+
+                <div className="mt-16 text-white/40 text-sm">
+                  <p>Powered by CoinGecko, Magic Eden, Helius & Meteora APIs</p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Crypto Prices Section */}
-          <section id="crypto" className="mb-12 scroll-mt-20">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold">Crypto Prices</h2>
-              <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
-                View All
-              </button>
-            </div>
-            <CryptoTracker />
-          </section>
+          {activeSection === 'crypto' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2">Crypto Prices</h2>
+                  <p className="text-white/60">Real-time cryptocurrency prices with 7-day charts</p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                  Refresh
+                </button>
+              </div>
+              <CryptoTracker />
+            </section>
+          )}
 
           {/* NFT Pump & Dump Tracker Section */}
-          <section id="pump-dump" className="mb-12 scroll-mt-20">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-3xl font-bold">NFT Pump & Dump Tracker</h2>
-                <p className="text-white/60 mt-2">
-                  Real-time detection: Track price movements, volume spikes, and market signals
-                </p>
+          {activeSection === 'pump-dump' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2">NFT Pump & Dump Tracker</h2>
+                  <p className="text-white/60">
+                    Real-time signal detection untuk price movements dan volume spikes
+                  </p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                  Set Alert
+                </button>
               </div>
-              <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
-                Alerts
-              </button>
-            </div>
-            <PumpDumpTracker />
-          </section>
+              <PumpDumpTracker />
+            </section>
+          )}
 
           {/* NFT Collections Section */}
-          <section id="nft" className="mb-12 scroll-mt-20">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold">NFT Collections</h2>
-              <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
-                Trending
-              </button>
-            </div>
-            <NFTTracker />
-          </section>
+          {activeSection === 'nft' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2">NFT Collections</h2>
+                  <p className="text-white/60">Top Solana NFT collections from Magic Eden</p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                  Trending
+                </button>
+              </div>
+              <NFTTracker />
+            </section>
+          )}
 
           {/* DLMM Pools Section */}
-          <section id="dlmm" className="mb-12 scroll-mt-20">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold">Meteora DLMM Pools</h2>
-              <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
-                Top Pools
-              </button>
-            </div>
-            <DLMMPools />
-          </section>
+          {activeSection === 'dlmm' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2">Meteora DLMM Pools</h2>
+                  <p className="text-white/60">Dynamic liquidity market maker pools dengan APY tracking</p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                  Top APY
+                </button>
+              </div>
+              <DLMMPools />
+            </section>
+          )}
         </main>
-
-        {/* Footer */}
-        <footer className="md:ml-64 border-t border-white/10 py-8 mt-20">
-          <div className="px-6 text-center text-white/40">
-            <p>Powered by CoinGecko, Magic Eden, Helius & Meteora APIs</p>
-          </div>
-        </footer>
       </div>
     </div>
   )
