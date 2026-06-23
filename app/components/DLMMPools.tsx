@@ -18,7 +18,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function DLMMPools() {
   const { data, error, isLoading } = useSWR<{ data: DLMMPool[] }>(
-    'https://dlmm-api.meteora.ag/pair/all',
+    '/api/dlmm',
     fetcher,
     { refreshInterval: 60000 } // Refresh every 60s
   )

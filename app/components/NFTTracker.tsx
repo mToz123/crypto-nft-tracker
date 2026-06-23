@@ -26,11 +26,13 @@ export default function NFTTracker() {
 }
 
 function NFTCard({ symbol }: { symbol: string }) {
-  const { data, error, isLoading } = useSWR(
-    `https://api-mainnet.magiceden.dev/v2/collections/${symbol}/stats`,
+  const { data: allData, error, isLoading } = useSWR(
+    '/api/nft',
     fetcher,
     { refreshInterval: 60000 } // Refresh every 60s
   )
+  
+  const data = allData?.find((item: any) => item.symbol === symbol)
 
   if (error) return <ErrorCard symbol={symbol} />
   if (isLoading) return <LoadingCard />
