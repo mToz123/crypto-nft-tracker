@@ -5,6 +5,7 @@ import CryptoTracker from './components/CryptoTracker'
 import NFTTracker from './components/NFTTracker'
 import DLMMPools from './components/DLMMPools'
 import PumpDumpTracker from './components/PumpDumpTracker'
+import MemecoinScanner from './components/MemecoinScanner'
 import Sidebar from './components/Sidebar'
 
 export default function Home() {
@@ -110,6 +111,9 @@ export default function Home() {
                 </button>
               </div>
               <CryptoTracker />
+              
+              {/* Memecoin Scanner */}
+              <MemecoinScanner />
             </section>
           )}
 
