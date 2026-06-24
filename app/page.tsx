@@ -22,7 +22,7 @@ export default function Home() {
           onNavigate={setActiveSection}
         />
         
-        <main className="md:ml-64 px-6 py-8">
+        <main className="md:ml-72 px-6 py-8">
           {/* Landing Page / Home */}
           {activeSection === 'home' && (
             <div className="min-h-screen flex items-center justify-center">
