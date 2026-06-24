@@ -6,7 +6,7 @@ interface SidebarProps {
   isDarkMode: boolean
   onToggleDarkMode: () => void
   activeSection: string
-  onNavigate: (section: 'home' | 'crypto' | 'pump-dump' | 'nft' | 'dlmm') => void
+  onNavigate: (section: 'home' | 'crypto' | 'pump' | 'dump' | 'nft' | 'dlmm') => void
 }
 
 export default function Sidebar({ isDarkMode, onToggleDarkMode, activeSection, onNavigate }: SidebarProps) {
@@ -15,7 +15,8 @@ export default function Sidebar({ isDarkMode, onToggleDarkMode, activeSection, o
   const menuItems = [
     { id: 'home', label: 'Home', desc: 'Dashboard' },
     { id: 'crypto', label: 'Crypto Prices', desc: 'Market tracking' },
-    { id: 'pump-dump', label: 'Pump & Dump', desc: 'Signal detection' },
+    { id: 'pump', label: 'Pump Tracker', desc: 'Price surge alerts' },
+    { id: 'dump', label: 'Dump Tracker', desc: 'Price drop alerts' },
     { id: 'nft', label: 'NFT Collections', desc: 'Solana NFTs' },
     { id: 'dlmm', label: 'DLMM Pools', desc: 'Liquidity pools' },
   ]

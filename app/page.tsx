@@ -10,7 +10,7 @@ import Sidebar from './components/Sidebar'
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true)
-  const [activeSection, setActiveSection] = useState<'home' | 'crypto' | 'pump-dump' | 'nft' | 'dlmm'>('home')
+  const [activeSection, setActiveSection] = useState<'home' | 'crypto' | 'pump' | 'dump' | 'nft' | 'dlmm'>('home')
 
   return (
     <div className={isDarkMode ? 'dark' : 'light'}>
@@ -19,7 +19,7 @@ export default function Home() {
           isDarkMode={isDarkMode} 
           onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
           activeSection={activeSection}
-          onNavigate={setActiveSection}
+          onNavigate={setActiveSection as any}
         />
         
         <main className="md:ml-72 px-6 py-8">
@@ -84,10 +84,17 @@ export default function Home() {
                   </button>
                   
                   <button
-                    onClick={() => setActiveSection('pump-dump')}
-                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105"
+                    onClick={() => setActiveSection('pump')}
+                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 border border-accent-green/30"
                   >
-                    View Pump & Dump Tracker
+                    📈 Pump Tracker
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveSection('dump')}
+                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 border border-accent-red/30"
+                  >
+                    📉 Dump Tracker
                   </button>
                 </div>
 
@@ -117,21 +124,39 @@ export default function Home() {
             </section>
           )}
 
-          {/* NFT Pump & Dump Tracker Section */}
-          {activeSection === 'pump-dump' && (
+          {/* Pump Tracker Section */}
+          {activeSection === 'pump' && (
             <section className="animate-fadeIn">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-4xl font-bold mb-2">NFT Pump & Dump Tracker</h2>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-green">📈 Pump Tracker</h2>
                   <p className="text-white/60">
-                    Real-time signal detection untuk price movements dan volume spikes
+                    Real-time detection untuk NFT yang sedang pump (price surge & volume spike)
                   </p>
                 </div>
-                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm border border-accent-green/30">
                   Set Alert
                 </button>
               </div>
-              <PumpDumpTracker />
+              <PumpDumpTracker filterMode="pump" />
+            </section>
+          )}
+
+          {/* Dump Tracker Section */}
+          {activeSection === 'dump' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-red">📉 Dump Tracker</h2>
+                  <p className="text-white/60">
+                    Real-time detection untuk NFT yang sedang dump (price drop & panic sell)
+                  </p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm border border-accent-red/30">
+                  Set Alert
+                </button>
+              </div>
+              <PumpDumpTracker filterMode="dump" />
             </section>
           )}
 

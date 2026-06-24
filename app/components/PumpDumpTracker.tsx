@@ -30,8 +30,14 @@ const SIGNAL_CONFIG = {
   NEUTRAL: { emoji: '➖', color: 'text-white/60', bg: 'bg-white/10', label: 'NEUTRAL' }
 }
 
-export default function PumpDumpTracker() {
-  const [filter, setFilter] = useState<'ALL' | 'PUMP' | 'DUMP' | 'HOT'>('ALL')
+interface PumpDumpTrackerProps {
+  filterMode?: 'pump' | 'dump' | 'all'
+}
+
+export default function PumpDumpTracker({ filterMode = 'all' }: PumpDumpTrackerProps) {
+  const [filter, setFilter] = useState<'ALL' | 'PUMP' | 'DUMP' | 'HOT'>(
+    filterMode === 'pump' ? 'PUMP' : filterMode === 'dump' ? 'DUMP' : 'ALL'
+  )
   const [sortBy, setSortBy] = useState<'change1h' | 'change24h' | 'volume'>('change1h')
   
   const { data, error, isLoading } = useSWR<{ data: NFTAnalytics[] }>(
