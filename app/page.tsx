@@ -10,7 +10,7 @@ import Sidebar from './components/Sidebar'
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true)
-  const [activeSection, setActiveSection] = useState<'home' | 'crypto' | 'pump' | 'dump' | 'nft' | 'dlmm'>('home')
+  const [activeSection, setActiveSection] = useState<'home' | 'crypto' | 'nft-pump' | 'nft-dump' | 'dlmm-pump' | 'dlmm-dump'>('home')
 
   return (
     <div className={isDarkMode ? 'dark' : 'light'}>
@@ -84,17 +84,17 @@ export default function Home() {
                   </button>
                   
                   <button
-                    onClick={() => setActiveSection('pump')}
+                    onClick={() => setActiveSection('nft-pump')}
                     className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 border border-accent-green/30"
                   >
-                    📈 Pump Tracker
+                    📈 NFT Pump
                   </button>
                   
                   <button
-                    onClick={() => setActiveSection('dump')}
-                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 border border-accent-red/30"
+                    onClick={() => setActiveSection('dlmm-pump')}
+                    className="px-8 py-4 glass rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 border border-accent-green/30"
                   >
-                    📉 Dump Tracker
+                    💧 DLMM Pump
                   </button>
                 </div>
 
@@ -124,12 +124,12 @@ export default function Home() {
             </section>
           )}
 
-          {/* Pump Tracker Section */}
-          {activeSection === 'pump' && (
+          {/* NFT Pump Section */}
+          {activeSection === 'nft-pump' && (
             <section className="animate-fadeIn">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-4xl font-bold mb-2 text-accent-green">📈 Pump Tracker</h2>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-green">📈 NFT Pump</h2>
                   <p className="text-white/60">
                     Real-time detection untuk NFT yang sedang pump (price surge & volume spike)
                   </p>
@@ -142,12 +142,12 @@ export default function Home() {
             </section>
           )}
 
-          {/* Dump Tracker Section */}
-          {activeSection === 'dump' && (
+          {/* NFT Dump Section */}
+          {activeSection === 'nft-dump' && (
             <section className="animate-fadeIn">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-4xl font-bold mb-2 text-accent-red">📉 Dump Tracker</h2>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-red">📉 NFT Dump</h2>
                   <p className="text-white/60">
                     Real-time detection untuk NFT yang sedang dump (price drop & panic sell)
                   </p>
@@ -160,35 +160,39 @@ export default function Home() {
             </section>
           )}
 
-          {/* NFT Collections Section */}
-          {activeSection === 'nft' && (
+          {/* DLMM Pump Section */}
+          {activeSection === 'dlmm-pump' && (
             <section className="animate-fadeIn">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-4xl font-bold mb-2">NFT Collections</h2>
-                  <p className="text-white/60">Top Solana NFT collections from Magic Eden</p>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-green">📈 DLMM Pump</h2>
+                  <p className="text-white/60">
+                    Meteora DLMM pools dengan APY surge dan volume spike detection
+                  </p>
                 </div>
-                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
-                  Trending
-                </button>
-              </div>
-              <NFTTracker />
-            </section>
-          )}
-
-          {/* DLMM Pools Section */}
-          {activeSection === 'dlmm' && (
-            <section className="animate-fadeIn">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-4xl font-bold mb-2">Meteora DLMM Pools</h2>
-                  <p className="text-white/60">Dynamic liquidity market maker pools dengan APY tracking</p>
-                </div>
-                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm">
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm border border-accent-green/30">
                   Top APY
                 </button>
               </div>
-              <DLMMPools />
+              <DLMMPools filterMode="pump" />
+            </section>
+          )}
+
+          {/* DLMM Dump Section */}
+          {activeSection === 'dlmm-dump' && (
+            <section className="animate-fadeIn">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-4xl font-bold mb-2 text-accent-red">📉 DLMM Dump</h2>
+                  <p className="text-white/60">
+                    Meteora DLMM pools dengan APY drop dan liquidity drain detection
+                  </p>
+                </div>
+                <button className="px-4 py-2 glass rounded-lg hover:bg-white/10 transition-all text-sm border border-accent-red/30">
+                  Monitor Risk
+                </button>
+              </div>
+              <DLMMPools filterMode="dump" />
             </section>
           )}
         </main>
